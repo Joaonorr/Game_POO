@@ -41,10 +41,16 @@ struct Board {
         this->rect.setSize(sf::Vector2f(step, step));
         this->rect.setFillColor(sf::Color::Transparent);
         this->rect.setOutlineColor(sf::Color::Black);
-        this->rect.setOutlineThickness(2);
+        this->rect.setOutlineThickness(0.5);
     }
 void draw(sf::RenderWindow& window){
     window.draw(this->sprite);
+     for (int i = 0; i < nc; i++) {
+            for (int j = 0; j < nl; j++) {
+                rect.setPosition(i * step, j * step);
+                window.draw(rect);
+            }
+        }
 }
 
 };
@@ -84,7 +90,7 @@ int main(){
     const int STEP {100};
 
     Entity rocket( 1, 1, STEP, rocket_tex);
-    Entity asteroid( 1, 1, STEP, asteroid_tex);
+    Entity asteroid( 4, 1, STEP, asteroid_tex);
     Board board(7, 5, STEP, space_tex);
 
     sf::RenderWindow window(sf::VideoMode(board.nc * STEP, board.nl * STEP), "SFML works!");
@@ -99,8 +105,10 @@ int main(){
             } else if(event.type == sf::Event::KeyPressed){
                 moveEntity(event.key.code, rocket, {sf::Keyboard::A, sf::Keyboard::W, sf::Keyboard::S, sf::Keyboard::D});
                 moveEntity(event.key.code, asteroid, {sf::Keyboard::Left, sf::Keyboard::Up, sf::Keyboard::Down, sf::Keyboard::Right});
-
             }  
+            if(rocket.x == asteroid.x && rocket.y == asteroid.y){
+                window.close();
+            }
         }
 
         //módulo de atualizações e pintura
