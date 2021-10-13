@@ -14,17 +14,19 @@ int main(){
         while(window.pollEvent(event) ){ 
             if( event.type == sf::Event::Closed){
                 window.close();
-            } else if(event.type == sf::Event::KeyPressed){
-                std::cout << " Key pressed: " << event.key.code << "\n";
-                if(event.key.code == 0 || event.key.code == 22 || event.key.code == 3 || event.key.code == 18){
-                    std::cout << " tecla de movimentação " << "\n";
-                }
-            }
+            }            
         }
+
+        sf::CircleShape shape(100.f);
+        shape.setFillColor(sf::Color::White);
+        shape.setPosition(300, 300);
+        shape.setOutlineColor(sf::Color(21, 43, 200));
+
+        //módulo de atualizações e pintura
+        window.clear();
+        window.draw(shape);
+        window.display();
     }
-    //módulo de atualizações e pintura
-    window.clear();
-    window.display();
 
     return 0;
 }
