@@ -56,16 +56,16 @@ void draw(sf::RenderWindow& window){
 };
 
 void moveEntity(sf::Keyboard::Key key, Entity& entity, std::vector<sf::Keyboard::Key> move_keys) {
-    if( key == move_keys[0]){
+    if( key == move_keys[0] && entity.x > 0){
         entity.x--;
     }
-    else if( key == move_keys[1]){
+    else if( key == move_keys[1] && entity.y > 0){
         entity.y--;
     }
-    else if( key == move_keys[2]){
+    else if( key == move_keys[2] && entity.y < 4){
         entity.y++;
     }
-    else if( key == move_keys[3]){
+    else if( key == move_keys[3] && entity.x < 6){
         entity.x++;
     }
 }
@@ -80,6 +80,7 @@ sf::Texture loadTexture(std::string path) {
     return texture;
 }
 
+
 int main(){
 
     // Laço para manter a janela aberta, Recebe 2 parâmetros: modo de vídeo e nome da janela.
@@ -89,8 +90,8 @@ int main(){
 
     const int STEP {100};
 
-    Entity rocket( 1, 1, STEP, rocket_tex);
-    Entity asteroid( 4, 1, STEP, asteroid_tex);
+    Entity rocket( 0, 0, STEP, rocket_tex);
+    Entity asteroid( 6, 4, STEP, asteroid_tex);
     Board board(7, 5, STEP, space_tex);
 
     sf::RenderWindow window(sf::VideoMode(board.nc * STEP, board.nl * STEP), "SFML works!");
@@ -109,6 +110,10 @@ int main(){
             if(rocket.x == asteroid.x && rocket.y == asteroid.y){
                 window.close();
             }
+           
+
+            
+
         }
 
         //módulo de atualizações e pintura
